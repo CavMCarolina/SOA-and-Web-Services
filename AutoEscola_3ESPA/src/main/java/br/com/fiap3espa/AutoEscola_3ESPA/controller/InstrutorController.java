@@ -17,3 +17,20 @@ public class InstrutorController {
 
     }
 }
+
+// JSON
+// {
+//     "nome": "Ágatha Magalhães",
+//     "email": "AM.contato@gmail.com",
+//     "cnh": "01234567890",
+//     "especialidade": "Motos",
+//     "endereco": {
+//         "logradouro": "Rua Calçada Florida",
+//         "numero": "450",
+//         "complemento": "Apto. 83C",
+//         "bairro": "Jardim Orquídeas",
+//         "cidade": "São Paulo",
+//         "uf": "SP",
+//         "cep": "53681000"
+//     }
+// }
