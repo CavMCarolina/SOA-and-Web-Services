@@ -6,6 +6,6 @@ public record DadosCadastroInstrutor(
         String nome,
         String email,
         String cnh,
-        String especialidade,
+        Especialidade especialidade,
         DadosEndereco endereco) {
 }
