@@ -22,7 +22,7 @@ public class InstrutorController {
         repository.save(new Instrutor(dados));
     }
 
-    @PostMapping
+    @GetMapping
     public void listarIntrutores() {
 
     }

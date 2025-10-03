@@ -1,4 +1,4 @@
-create table intrutores (
+create table instrutores (
     id              bigint not null auto_increment,
     nome            varchar(100) not null,
     email           varchar(100) not null unique,
@@ -8,6 +8,7 @@ create table intrutores (
     numero          varchar(20) not null,
     complemento     varchar(100),
     bairro          varchar(100) not null,
+    cidade          varchar(100) not null,
     uf              varchar(2) not null,
     cep             varchar(8) not null,
 
