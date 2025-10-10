@@ -1,11 +1,17 @@
 package br.com.fiap3espa.AutoEscola_3ESPA.controller;
 
 import br.com.fiap3espa.AutoEscola_3ESPA.instrutor.DadosCadastroInstrutor;
+import br.com.fiap3espa.AutoEscola_3ESPA.instrutor.DadosListagemInstrutor;
 import br.com.fiap3espa.AutoEscola_3ESPA.instrutor.Instrutor;
 import br.com.fiap3espa.AutoEscola_3ESPA.instrutor.InstrutorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/instrutores")
@@ -23,8 +29,8 @@ public class InstrutorController {
     }
 
     @GetMapping
-    public void listarIntrutores() {
-
+    public Page<DadosListagemInstrutor> listarIntrutores(@PageableDefault(size = 2, sort = {"nome"}) Pageable paginacao) {
+        return repository.findAll(paginacao).map(DadosListagemInstrutor::new);
     }
 
     @PutMapping
@@ -43,7 +49,7 @@ public class InstrutorController {
 //     "nome": "Ágatha Magalhães",
 //     "email": "AM.contato@gmail.com",
 //     "cnh": "01234567890",
-//     "especialidade": "Motos",
+//     "especialidade": "MOTOS",
 //     "endereco": {
 //         "logradouro": "Rua Calçada Florida",
 //         "numero": "450",
