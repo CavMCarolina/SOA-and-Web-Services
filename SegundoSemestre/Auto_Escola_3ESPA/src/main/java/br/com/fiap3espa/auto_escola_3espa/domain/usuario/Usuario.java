@@ -25,7 +25,28 @@ public class Usuario implements UserDetails {
     private Long id;
     private String login;
     private String senha;
+
+    @Enumerated(EnumType.STRING)
     private Role perfil;
+
+    public Usuario(DadosCadastroUsuario dados, String senhaCriptografada) {
+        this.login = dados.login();
+        this.senha = senhaCriptografada;
+        this.perfil = dados.perfil();
+    }
+
+    public void atualizarDados(DadosAtualizacaoUsuario dados) {
+        if (dados.login() != null && !dados.login().isBlank()) {
+            this.login = dados.login();
+        }
+        if (dados.perfil() != null) {
+            this.perfil = dados.perfil();
+        }
+    }
+
+    public void alterarSenha(String novaSenhaCriptografada) {
+        this.senha = novaSenhaCriptografada;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

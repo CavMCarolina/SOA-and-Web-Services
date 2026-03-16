@@ -23,9 +23,17 @@ public class SecurityConfigurations {
                 .sessionManagement(sm
                         -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        // Login: público
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("instrutores").hasAnyRole("ADMIN", "USER")
+                        // Alterar própria senha deve vir ANTES de /usuarios/** (regra mais específica primeiro)
+                        .requestMatchers(org.springframework.http.HttpMethod.PATCH, "/usuarios/senha").authenticated()
+                        // CRUD completo de usuários: apenas ADMIN
+                        .requestMatchers("/usuarios/**").hasRole("ADMIN")
+                        // Instrutores: ADMIN ou USER
+                        .requestMatchers("/instrutores/**").hasAnyRole("ADMIN", "USER")
+                        // Qualquer outra rota: autenticado
                         .anyRequest().authenticated()
+                        .requestMatchers("/alunos/**").hasAnyRole("ADMIN", "USER")
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

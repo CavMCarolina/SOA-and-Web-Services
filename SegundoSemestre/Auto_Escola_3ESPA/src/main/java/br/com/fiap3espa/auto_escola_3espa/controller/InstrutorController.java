@@ -26,8 +26,8 @@ public class InstrutorController {
             @RequestBody @Valid DadosCadastroInstrutor dados,
             UriComponentsBuilder uriBuilder) {
         Instrutor instrutor = new Instrutor(dados);
-        URI uri = uriBuilder.path("/instrutores/{id}").buildAndExpand(instrutor.getId()).toUri();
         repository.save(instrutor);
+        URI uri = uriBuilder.path("/instrutores/{id}").buildAndExpand(instrutor.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoInstrutor(instrutor));
     }
 
