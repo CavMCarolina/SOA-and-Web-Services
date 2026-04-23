@@ -25,13 +25,22 @@ public class SecurityFilter extends OncePerRequestFilter {
     private UsuarioRepository repository;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+        return path.startsWith("/v3/")
+                || path.startsWith("/swagger-ui")
+                || path.equals("/swagger-ui.html")
+                || path.startsWith("/webjars/");
+    }
+
+    @Override
     protected void doFilterInternal(
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
         String tokenJWT = recuperarToken(request);
 
-        if(tokenJWT != null) {
+        if (tokenJWT != null) {
             String subject = tokenService.getSubject(tokenJWT);
             UserDetails usuario = repository.findByLogin(subject);
             UsernamePasswordAuthenticationToken authentication =
@@ -44,7 +53,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     private String recuperarToken(HttpServletRequest request) {
         String authorizatioHeader = request.getHeader("Authorization");
-        if(authorizatioHeader != null) {
+        if (authorizatioHeader != null) {
             return authorizatioHeader.replace("Bearer ", "");
         }
         return null;
