@@ -1,0 +1,14 @@
+package br.com.fiap3espa.auto_escola_3espa.adapter.in.controller.request.usuario;
+
+import jakarta.validation.constraints.NotNull;
+
+public record DadosAutenticacao(
+
+        @NotNull
+        String login,
+
+        @NotNull
+        //@Pattern(regexp = "\\d{8,12}")
+        //@Size(min = 8, max = 12)
+        String senha) {
+}
